@@ -55,6 +55,10 @@ D:\C#\AngularWork\WebAngular\WebAngular\bin\ru\System.Web.Razor.resources.dll
 D:\C#\AngularWork\WebAngular\WebAngular\bin\ru\System.Web.WebPages.resources.dll
 D:\C#\AngularWork\WebAngular\WebAngular\bin\ru\System.Web.WebPages.Deployment.resources.dll
 D:\C#\AngularWork\WebAngular\WebAngular\bin\ru\System.Web.WebPages.Razor.resources.dll
-D:\C#\AngularWork\WebAngular\WebAngular\obj\Debug\WebAngular.csprojResolveAssemblyReference.cache
 D:\C#\AngularWork\WebAngular\WebAngular\obj\Debug\WebAngular.dll
 D:\C#\AngularWork\WebAngular\WebAngular\obj\Debug\WebAngular.pdb
+D:\C#\AngularWork\WebAngular\WebAngular\bin\EntityFramework.dll
+D:\C#\AngularWork\WebAngular\WebAngular\bin\EntityFramework.SqlServer.dll
+D:\C#\AngularWork\WebAngular\WebAngular\bin\EntityFramework.xml
+D:\C#\AngularWork\WebAngular\WebAngular\bin\EntityFramework.SqlServer.xml
+D:\C#\AngularWork\WebAngular\WebAngular\bin\ru\EntityFramework.resources.dll

@@ -3,28 +3,42 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using WebAngular.Models;
 
 namespace WebAngular.Controllers
 {
     public class HomeController : Controller
     {
+        AddressContext db = new AddressContext();
         public ActionResult Index()
         {
-            return View();
+
+            using (AddressContext db = new AddressContext())
+            {
+                // создаем два объекта User
+                Addres adr1 = new Addres {Country="Россия", City="Ульяновск", Street="Гончарова", Number=33, Index=457825, Date=DateTime.Now };
+
+                // добавляем их в бд
+                //db.Address.Add(adr1);
+                //db.SaveChanges();
+            }
+                return View();
         }
 
-        public ActionResult About()
+        [HttpGet]
+        public ActionResult GetAddress() //тут мы получим список адресов через аякс запрос
         {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
+            // получаем объекты из бд
+            var address = db.Address;
+            JsonResult jr = Json(address, JsonRequestBehavior.AllowGet); // и наш объект address сериализован
+            
+            return jr;
         }
 
-        public ActionResult Contact()
+        [HttpGet]
+        public int GetPages() //вернем кол-во страниц удовлетворяющих запросу
         {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
+            return 18;
         }
     }
 }
