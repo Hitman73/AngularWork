@@ -35,10 +35,49 @@ namespace WebAngular.Controllers
             return jr;
         }
 
-        [HttpGet]
-        public int GetPages() //вернем кол-во страниц удовлетворяющих запросу
+        [HttpPost]
+        public string SetPages() //вернем кол-во страниц удовлетворяющих запросу
         {
-            return 18;
+            int a = Int32.Parse(Request.Params["id"]);
+            
+            return "<h2>Площадь треугольника с основанием " + a + "</h2>";
+        }
+
+        [HttpPost]
+        public ActionResult SortColumn(string sortType, string sortReverse) //сортируем таблицу по столбцу
+        {
+            //string sortType  = Request.Params["sortType"];
+            //string sortReverse = Request.Params["sortReverse"];
+            IOrderedQueryable<Addres> sortDate;
+
+            switch (sortType) {
+                case "Id":
+                    sortDate = (sortReverse == "false") ? db.Address.OrderByDescending(p => p.Id) : db.Address.OrderBy(p => p.Id);
+                    break;
+                case "Country":
+                    sortDate = (sortReverse == "false") ? db.Address.OrderByDescending(p => p.Country) : db.Address.OrderBy(p => p.Country);
+                    break;
+                case "City":
+                    sortDate = (sortReverse == "false") ? db.Address.OrderByDescending(p => p.City) : db.Address.OrderBy(p => p.City);
+                    break;
+                case "Street":
+                    sortDate = (sortReverse == "false") ? db.Address.OrderByDescending(p => p.Street) : db.Address.OrderBy(p => p.Street);
+                    break;
+                case "Num":
+                    sortDate = (sortReverse == "false") ? db.Address.OrderByDescending(p => p.Number) : db.Address.OrderBy(p => p.Number);
+                    break;
+                case "Index":
+                    sortDate = (sortReverse == "false") ? db.Address.OrderByDescending(p => p.Index) : db.Address.OrderBy(p => p.Index);
+                    break;
+                case "Date":
+                    sortDate = (sortReverse == "false") ? db.Address.OrderByDescending(p => p.Date) : db.Address.OrderBy(p => p.Date);
+                    break;
+                default:
+                    sortDate = (sortReverse == "false") ? db.Address.OrderByDescending(p => p.Id) : db.Address.OrderBy(p => p.Id);
+                    break;
+            }
+
+            return Json(sortDate, JsonRequestBehavior.AllowGet); // и наш объект address сериализован
         }
     }
 }

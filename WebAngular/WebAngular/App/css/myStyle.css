@@ -1,0 +1,18 @@
+﻿.fa-caret-up, .fa-caret-down{
+    display: inline-table;
+    margin: 0px auto;
+    width: 10px;
+    height: 10px;
+}
+.fa-caret-up {
+    background-position: 0px 0px;
+    background-image: url('../image/caret-up.png');
+    background-repeat: no-repeat;
+    overflow: hidden;
+}
+.fa-caret-down {
+    background-position: 0px 0px;
+    background-image: url('../image/caret-down.png');
+    background-repeat: no-repeat;
+    overflow: hidden;
+}

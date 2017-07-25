@@ -78,6 +78,12 @@ adrApp.factory('pagination', function ($sce) {
 });
 
 adrApp.controller('myCtrl', function ($scope, $http, pagination) { //$http объязателен для ajax, он и выполняет его
+
+    $scope.sortType = 'Id'; // значение сортировки по умолчанию
+    $scope.sortReverse = false;  // обратная сортривка
+    $scope.searchFish = '';     // значение поиска по умолчанию
+
+
     $http.get('http://localhost:9476//Home//GetAddress') //наш контроллер с методом для получания списка
         .then(function success(result) {
             //$scope.ListAddress = result.data; //получили и передали в $scope.todos, тут нужно многое сказать про $scope, но все это уже есть в официальном справочнике на ихнем же сайте/
@@ -94,12 +100,31 @@ adrApp.controller('myCtrl', function ($scope, $http, pagination) { //$http об�
         } else {
             $scope.ListAddress = pagination.getPageAddress(page);
         }
-        
-    }
+
+    };
 
     $scope.currentPageNum = function () {
         return pagination.getCurrentPageNum();
-    }
+    };
+
+    $scope.sortColumn = function (sortType) {
+        $scope.sortType = sortType;
+        $http({ method: 'POST', url: 'http://localhost:9476//Home//SortColumn', params: { 'sortType': $scope.sortType, 'sortReverse': $scope.sortReverse } }).
+         then(function success(response) {
+             pagination.fillArrayAddress(response.data);
+             $scope.ListAddress = pagination.getPageAddress(0);
+             $scope.paginationList = pagination.getPaginationList();
+             console.log(response.data);
+         })
+    };
+    $scope.send = function (answer) {
+        $http({ method: 'POST', url: 'http://localhost:9476//Home//SetPages', params: { 'id': answer } }).
+         then(function success(response) {
+             console.log(response.data);
+         })
+    };
+
+    
 
     //$http.get('http://localhost:9476//Home//GetPages') //наш контроллер с методом для получания кол-ва страниц
     //    .then(function success(result) {

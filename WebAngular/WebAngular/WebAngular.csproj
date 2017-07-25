@@ -167,6 +167,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App\css\myStyle.css" />
+    <Content Include="App\image\caret-up.png" />
+    <Content Include="App\image\caret-down.png" />
     <Content Include="App_Data\DBAddres.mdf" />
     <Content Include="App_Data\DBAddres_log.ldf">
       <DependentUpon>DBAddres.mdf</DependentUpon>
