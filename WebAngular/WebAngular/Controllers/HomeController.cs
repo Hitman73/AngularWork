@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using WebAngular.Models;
@@ -79,5 +80,35 @@ namespace WebAngular.Controllers
 
             return Json(sortDate, JsonRequestBehavior.AllowGet); // и наш объект address сериализован
         }
+
+        [HttpPost]
+        public ActionResult FilterDateTable() //фильтрация данных
+        {
+            string country  = Request.Params["f_country"];
+            string city     = Request.Params["f_city"];
+            string street   = Request.Params["f_street"];
+            string number = Request.Params["f_number"];
+            string index = Request.Params["f_index"];
+            string date = Request.Params["f_date"];
+
+            // получаем объекты из бд
+            var address = db.Address;
+            var f_date = db.Address.Where(p => p.Country.Contains(country) && p.City.Contains(city) && p.Street.Contains(street));
+
+            if (number != "")
+            {
+                int num = Int32.Parse(number);
+                f_date = f_date.Where(p => p.Number == num);
+            }
+            if (index != "")
+            {
+                int ind = Int32.Parse(index);
+                f_date = f_date.Where(p => p.Index == ind);
+            }
+            JsonResult jr = Json(f_date, JsonRequestBehavior.AllowGet); // и наш объект address сериализован
+
+            return jr;
+        }
     }
+    
 }

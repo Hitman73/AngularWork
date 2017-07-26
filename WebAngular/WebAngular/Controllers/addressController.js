@@ -19,7 +19,7 @@ adrApp.factory('pagination', function ($sce) {
             var last = first + itemsPerPage;
 
             currentPage = numPage;
-            last = last > address.length ? (address.length - 1) : last;
+            last = last > address.length ? (address.length) : last;
             return address.slice(first, last);
         },
 
@@ -79,10 +79,18 @@ adrApp.factory('pagination', function ($sce) {
 
 adrApp.controller('myCtrl', function ($scope, $http, pagination) { //$http объязателен для ajax, он и выполняет его
 
-    $scope.sortType = 'Id'; // значение сортировки по умолчанию
-    $scope.sortReverse = false;  // обратная сортривка
-    $scope.searchFish = '';     // значение поиска по умолчанию
+    $scope.sortType = '';       // значение сортировки по умолчанию
+    $scope.sortReverse = true;  // обратная сортривка
+    $scope.searchFish = '';     
 
+    $scope.my_filter = {        // значение поиска по умолчанию
+        f_country: '',
+        f_city: '',
+        f_street: '',
+        f_number: '',
+        f_index: '',
+        f_date: ''
+    };
 
     $http.get('http://localhost:9476//Home//GetAddress') //наш контроллер с методом для получания списка
         .then(function success(result) {
@@ -109,6 +117,7 @@ adrApp.controller('myCtrl', function ($scope, $http, pagination) { //$http об�
 
     $scope.sortColumn = function (sortType) {
         $scope.sortType = sortType;
+        $scope.sortReverse = !$scope.sortReverse;
         $http({ method: 'POST', url: 'http://localhost:9476//Home//SortColumn', params: { 'sortType': $scope.sortType, 'sortReverse': $scope.sortReverse } }).
          then(function success(response) {
              pagination.fillArrayAddress(response.data);
@@ -117,19 +126,16 @@ adrApp.controller('myCtrl', function ($scope, $http, pagination) { //$http об�
              console.log(response.data);
          })
     };
-    $scope.send = function (answer) {
-        $http({ method: 'POST', url: 'http://localhost:9476//Home//SetPages', params: { 'id': answer } }).
+
+    $scope.filter = function () {
+        console.log("f_country %s f_city  %s f_street  %s f_number  %s", 
+                    $scope.my_filter.f_country, $scope.my_filter.f_city, $scope.my_filter.f_street, $scope.my_filter.f_number);
+        $http({ method: 'POST', url: 'http://localhost:9476//Home//FilterDateTable', params: $scope.my_filter }).
          then(function success(response) {
+             pagination.fillArrayAddress(response.data);
+             $scope.ListAddress = pagination.getPageAddress(0);
+             $scope.paginationList = pagination.getPaginationList();
              console.log(response.data);
          })
     };
-
-    
-
-    //$http.get('http://localhost:9476//Home//GetPages') //наш контроллер с методом для получания кол-ва страниц
-    //    .then(function success(result) {
-    //        $scope.pages = result.data; //получили и передали в $scope.todos, тут нужно многое сказать про $scope, но все это уже есть в официальном справочнике на ихнем же сайте
-    //    });
-
-    
 });
