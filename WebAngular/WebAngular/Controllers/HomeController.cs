@@ -87,19 +87,24 @@ namespace WebAngular.Controllers
             string country  = Request.Params["f_country"];
             string city     = Request.Params["f_city"];
             string street   = Request.Params["f_street"];
-            string number = Request.Params["f_number"];
+            int f_number_min = Int32.Parse(Request.Params["f_number_min"]);
+            int f_number_max = Int32.Parse(Request.Params["f_number_max"]);
             string index = Request.Params["f_index"];
             string date = Request.Params["f_date"];
 
             // получаем объекты из бд
             var address = db.Address;
+            //Отфильтруем по Стране, Городу и улице
             var f_date = db.Address.Where(p => p.Country.Contains(country) && p.City.Contains(city) && p.Street.Contains(street));
 
-            if (number != "")
+            //Фильтруем по номеру
+            f_date = f_date.Where(p => (p.Number >= f_number_min) && ((p.Number <= f_number_max)));
+            /*if (number != "")
             {
                 int num = Int32.Parse(number);
                 f_date = f_date.Where(p => p.Number == num);
-            }
+            }*/
+            //Фильтруем по индексу
             if (index != "")
             {
                 int ind = Int32.Parse(index);

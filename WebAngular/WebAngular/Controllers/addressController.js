@@ -1,6 +1,26 @@
 ﻿var adrApp = angular.module('adrApp');
+//директива для окна
+adrApp.directive('popUpDialog', function () {
+    return {
+        restrict: 'E',
+        scope: false,
+        templateUrl: 'http://localhost:9476//App//SliderDialog.html',
+        controller: function ($scope) {
 
+            $scope.showPopUpDialog = false;
 
+            $scope.closePopUpDialog = function () {
+                $scope.showPopUpDialog = false;
+            }
+
+            $scope.popUpDialogApprove = function () {
+                //$scope[$scope.popUpDialogCallback]();
+                $scope.showPopUpDialog = false;
+            }
+        }
+    }
+})
+//фабрика для пагинации
 adrApp.factory('pagination', function ($sce) {
     var currentPage = 0;        //текущая страница
     var itemsPerPage = 20;      //кол-во записей на странице
@@ -80,17 +100,28 @@ adrApp.factory('pagination', function ($sce) {
 adrApp.controller('myCtrl', function ($scope, $http, pagination) { //$http объязателен для ajax, он и выполняет его
 
     $scope.sortType = '';       // значение сортировки по умолчанию
-    $scope.sortReverse = true;  // обратная сортривка
-    $scope.searchFish = '';     
+    $scope.sortReverse = true;  // обратная сортривка  
 
     $scope.my_filter = {        // значение поиска по умолчанию
         f_country: '',
         f_city: '',
         f_street: '',
-        f_number: '',
+        f_number_min: 1,
+        f_number_max: 200,
         f_index: '',
         f_date: ''
     };
+
+
+    $scope.dateRangeChanged = function () {
+        console.log($scope.dateRange);
+    }
+    $scope.sliderDialog = function () {
+        $scope.popUpDialogContent = 'Запустить таймер?';
+        //$scope.popUpDialogCallback = 'activateTimer';
+        console.log("click");
+        $scope.showPopUpDialog = true;
+    }
 
     $http.get('http://localhost:9476//Home//GetAddress') //наш контроллер с методом для получания списка
         .then(function success(result) {

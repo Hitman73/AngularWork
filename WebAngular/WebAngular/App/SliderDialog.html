@@ -1,0 +1,22 @@
+﻿<div id="popUpDialog-bg" ng-show="showPopUpDialog">
+    <div id="popUpDialog">
+        
+        
+        <div class="clearfix buttons-container">
+            <p>Диапазон номеров домов</p>
+            <p>от {{my_filter.f_number_min}} до {{my_filter.f_number_max}}</p>
+            <div data-range-slider
+                 data-floor="1"
+                 data-ceiling="300"
+                 data-dragstop="true"
+                 data-ng-model-low="my_filter.f_number_min"
+                 data-ng-model-high="my_filter.f_number_max"></div>
+
+            <div class="row">
+                <div class="col-md-2 col-md-offset-4">
+                    <button class="btn btn-primary" ng-click="popUpDialogApprove()">OK</button>
+                </div>
+            </div>
+        </div> 
+    </div> 
+</div>

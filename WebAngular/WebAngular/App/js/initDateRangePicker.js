@@ -1,5 +1,4 @@
-﻿
-    $('input[name="daterange"]').daterangepicker({
+﻿$('#daterange').daterangepicker({
         timePicker: true,
         timePickerIncrement: 30,
         "opens": "left",
