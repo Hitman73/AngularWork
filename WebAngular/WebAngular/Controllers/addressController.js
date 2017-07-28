@@ -97,10 +97,12 @@ adrApp.factory('pagination', function ($sce) {
     }
 });
 
-adrApp.controller('myCtrl', function ($scope, $http, pagination) { //$http объязателен для ajax, он и выполняет его
+adrApp.controller('myCtrl', 
+    function ($scope, $http, pagination, translationService) { //$http объязателен для ajax, он и выполняет его
 
     $scope.sortType = '';       // значение сортировки по умолчанию
     $scope.sortReverse = true;  // обратная сортривка  
+    $scope.selectedLanguage = 'ru'; //выбранный язык страницы
 
     $scope.my_filter = {        // значение поиска по умолчанию
         f_country: '',
@@ -112,10 +114,19 @@ adrApp.controller('myCtrl', function ($scope, $http, pagination) { //$http об�
         f_date: ''
     };
 
-
+    $scope.DateRange = moment()
     $scope.dateRangeChanged = function () {
         console.log($scope.dateRange);
     }
+
+    //Выполняем перевод, если произошло событие смены языка
+    $scope.translate = function () {
+        translationService.getTranslation($scope, $scope.selectedLanguage);
+    };
+    // Инициализация
+    $scope.translate();
+
+
     $scope.sliderDialog = function () {
         $scope.popUpDialogContent = 'Запустить таймер?';
         //$scope.popUpDialogCallback = 'activateTimer';
