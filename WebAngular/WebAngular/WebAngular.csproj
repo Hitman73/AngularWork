@@ -173,6 +173,9 @@
     <Content Include="App\image\caret-up.png" />
     <Content Include="App\image\caret-down.png" />
     <Content Include="App\image\filte.png" />
+    <Content Include="App\js\PagerService.js" />
+    <Content Include="App\js\paginationFactory.js" />
+    <Content Include="App\js\popUpDialogDirective.js" />
     <Content Include="App\js\TranslationService.js" />
     <Content Include="App\js\initDateRangePicker.js" />
     <Content Include="App\js\lib\angular-range-slider.min.js" />

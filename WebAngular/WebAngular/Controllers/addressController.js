@@ -1,101 +1,4 @@
 ﻿var adrApp = angular.module('adrApp');
-//директива для окна
-adrApp.directive('popUpDialog', function () {
-    return {
-        restrict: 'E',
-        scope: false,
-        templateUrl: 'http://localhost:9476//App//SliderDialog.html',
-        controller: function ($scope) {
-
-            $scope.showPopUpDialog = false;
-
-            $scope.closePopUpDialog = function () {
-                $scope.showPopUpDialog = false;
-            }
-
-            $scope.popUpDialogApprove = function () {
-                //$scope[$scope.popUpDialogCallback]();
-                $scope.showPopUpDialog = false;
-            }
-        }
-    }
-})
-//фабрика для пагинации
-adrApp.factory('pagination', function ($sce) {
-    var currentPage = 0;        //текущая страница
-    var itemsPerPage = 20;      //кол-во записей на странице
-    var address = [];           //массив адресов
-
-    return {
-        //наполняем массив
-        fillArrayAddress: function (new_address) { 
-            address = new_address;
-        },
-
-        //ввернем записи для одной страници
-        getPageAddress: function (numPage) {
-            var numPage = angular.isUndefined(numPage) ? 0 : numPage;
-            var first = itemsPerPage * numPage;
-            var last = first + itemsPerPage;
-
-            currentPage = numPage;
-            last = last > address.length ? (address.length) : last;
-            return address.slice(first, last);
-        },
-
-        //вернем максимальное кол-во страниц
-        getPagesMax: function () {
-            return Math.ceil(address.length / itemsPerPage);
-        },
-
-        //формируем список страниц
-        getPaginationList: function () {
-            var pagesNum = this.getPagesMax();
-            var paginationList = [];
-            paginationList.push({
-                name: $sce.trustAsHtml('&laquo;'),
-                link: 'prev'
-            });
-            for (var i = 0; i < pagesNum; i++) {
-                var name = i + 1;
-                paginationList.push({
-                    name: $sce.trustAsHtml(String(name)),
-                    link: i
-                });
-            };
-            paginationList.push({
-                name: $sce.trustAsHtml('&raquo;'),
-                link: 'next'
-            });
-
-            if (pagesNum > 1) {
-                return paginationList;
-            } else {
-                return null;
-            }
-        },
-
-        //возвращаем текущую страницу
-        getCurrentPageNum: function () {
-            return currentPage;
-        },
-
-        //вернем записи для предыдущей страници
-        getPrevPageAddress: function () {
-            var prevPageNum = currentPage - 1;
-            if (prevPageNum < 0) prevPageNum = 0;
-            return this.getPageAddress(prevPageNum);
-        }, 
-
-        //вернем записи для следующей страници
-        getNextPageAddress: function () {
-            var nextPageNum = currentPage + 1;
-            var pagesNum = this.getPagesMax();
-            if (nextPageNum >= pagesNum) nextPageNum = pagesNum - 1;
-            return this.getPageAddress(nextPageNum);
-        }
-    }
-});
 
 adrApp.controller('myCtrl', 
     function ($scope, $http, pagination, translationService) { //$http объязателен для ajax, он и выполняет его
@@ -143,6 +46,7 @@ adrApp.controller('myCtrl',
         });
 
     $scope.showPage = function (page) {
+        console.log(page);
         if (page == 'prev') {
             $scope.ListAddress = pagination.getPrevPageAddress();
         } else if (page == 'next') {
@@ -150,7 +54,8 @@ adrApp.controller('myCtrl',
         } else {
             $scope.ListAddress = pagination.getPageAddress(page);
         }
-
+        $scope.paginationList = pagination.getPaginationList();
+        
     };
 
     $scope.currentPageNum = function () {

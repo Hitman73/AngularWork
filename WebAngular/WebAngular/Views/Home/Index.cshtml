@@ -53,20 +53,19 @@
                     <span ng-show="sortType == 'Date' && sortReverse" class="fa-caret-up"></span>
                 </th>
             </tr>
+            
+        </thead>
+        <tbody>
             <tr>
                 <th><a class='btn btn-default' href='#' ng-click="filter()"><img src="~/App/image/filte.png" /></a></th>
                 <th><input type="text" class="form-control" ng-model="my_filter.f_country"></th>
                 <th><input type="text" class="form-control" ng-model="my_filter.f_city"></th>
                 <th><input type="text" class="form-control" ng-model="my_filter.f_street"></th>
                 <th><input type="text" class="form-control" value="{{my_filter.f_number_min}}-{{my_filter.f_number_max}}" ng-click="sliderDialog()" \></th>
-                <th><input type="text" class="form-control" ng-model="my_filter.f_index"></th>
-                <th>
-                    <input type="text" id="daterange" class="form-control" />
-                    <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
-                <th>
+                <th><input type="text" class="form-control" maxlength="6" ng-model="my_filter.f_index"></th>
+                <th><input type="text" class="form-control " id="daterange" /></th>
+    
             </tr>
-        </thead>
-        <tbody>
             <tr ng-repeat="adr in ListAddress">
                 @*Формируем стороки для вывода данных*@
                 <td>{{adr.Id}}</td>
@@ -103,6 +102,8 @@
 
 <script src="~/App/js/TranslationService.js"></script>
 <script src="~/App/js/lib/daterangepicker.js"></script>
+<script src="~/App/js/popUpDialogDirective.js"></script>
+<script src="~/App/js/paginationFactory.js"></script>
 <script src="~/Controllers/addressController.js"></script>
 <script src="~/App/js/initDateRangePicker.js"></script>
 
