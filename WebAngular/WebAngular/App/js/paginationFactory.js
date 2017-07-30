@@ -59,12 +59,6 @@ adrApp.factory('pagination', function ($sce) {
             //var startIndex = (currentPage - 1) * pageSize;
             //var endIndex = Math.min(startIndex + pageSize - 1, address.length - 1);
 
-            
-            var first = listPage == 0 ? 0 : (listPage * maxPage) - 1;
-            var last = first + maxPage;
-            last = last > pagesNum ? (pagesNum) : last;
-
-            lastPage = last;
             paginationList.push({
                 name: $sce.trustAsHtml('&laquo;'),
                 link: 'prev'

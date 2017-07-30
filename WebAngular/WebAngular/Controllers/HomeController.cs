@@ -13,7 +13,7 @@ namespace WebAngular.Controllers
         AddressContext db = new AddressContext();
         public ActionResult Index()
         {
-
+            
             using (AddressContext db = new AddressContext())
             {
                 // создаем два объекта User

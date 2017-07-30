@@ -5,6 +5,10 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAngular", "WebAngular\WebAngular.csproj", "{57AF7848-B9DA-4B63-A37C-2DBC1899CF8C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataGenerator.BL", "DataGenerator.BL\DataGenerator.BL.csproj", "{372B4AD4-7272-4044-94DF-B9B074A96918}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataGenerate", "DataGenerate\DataGenerate.csproj", "{46AB2451-D475-4E7A-86CA-9E6B077265CD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{57AF7848-B9DA-4B63-A37C-2DBC1899CF8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{57AF7848-B9DA-4B63-A37C-2DBC1899CF8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{57AF7848-B9DA-4B63-A37C-2DBC1899CF8C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{372B4AD4-7272-4044-94DF-B9B074A96918}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{372B4AD4-7272-4044-94DF-B9B074A96918}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{372B4AD4-7272-4044-94DF-B9B074A96918}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{372B4AD4-7272-4044-94DF-B9B074A96918}.Release|Any CPU.Build.0 = Release|Any CPU
+		{46AB2451-D475-4E7A-86CA-9E6B077265CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{46AB2451-D475-4E7A-86CA-9E6B077265CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{46AB2451-D475-4E7A-86CA-9E6B077265CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{46AB2451-D475-4E7A-86CA-9E6B077265CD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

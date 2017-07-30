@@ -14,7 +14,7 @@ adrApp.directive('popUpDialog', function () {
             }
 
             $scope.popUpDialogApprove = function () {
-                //$scope[$scope.popUpDialogCallback]();
+                $scope[$scope.popUpDialogCallback]();
                 $scope.showPopUpDialog = false;
             }
         }

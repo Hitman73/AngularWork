@@ -11,6 +11,7 @@ adrApp.controller('myCtrl',
         f_country: '',
         f_city: '',
         f_street: '',
+        f_house: '',
         f_number_min: 1,
         f_number_max: 200,
         f_index: '',
@@ -29,12 +30,15 @@ adrApp.controller('myCtrl',
     // Инициализация
     $scope.translate();
 
-
+    //откроем диалоговое окно
     $scope.sliderDialog = function () {
-        $scope.popUpDialogContent = 'Запустить таймер?';
-        //$scope.popUpDialogCallback = 'activateTimer';
-        console.log("click");
+        $scope.popUpDialogCallback = 'activateFilter';        
         $scope.showPopUpDialog = true;
+    }
+
+    $scope.activateFilter = function () {
+        $scope.my_filter.f_house = 'zxcv';//$scope.my_filter.f_number_min - $scope.my_filter.f_number_max;
+        console.log("activateFilter");
     }
 
     $http.get('http://localhost:9476//Home//GetAddress') //наш контроллер с методом для получания списка
