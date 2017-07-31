@@ -13,81 +13,82 @@
         <h1 class="text-center">Тестовое задание</h1>
     </div>
 
+    <form name="filter">
+        <table class="table table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>
+                        <a href="#" ng-click="sortColumn('Id')">№</a>
+                        <span ng-show="sortType == 'Id' && !sortReverse" class="fa-caret-down"></span>
+                        <span ng-show="sortType == 'Id' && sortReverse" class="fa-caret-up"></span>
+                    </th>
+                    <th>
+                        <a href="#" ng-click="sortColumn('Country')">{{translation.COUNTRY}}</a>
+                        <span ng-show="sortType == 'Country' && !sortReverse" class="fa-caret-down"></span>
+                        <span ng-show="sortType == 'Country' && sortReverse" class="fa-caret-up"></span>
+                    </th>
+                    <th>
+                        <a href="#" ng-click="sortColumn('City')">{{translation.CITY}}</a>
+                        <span ng-show="sortType == 'City' && !sortReverse" class="fa-caret-down"></span>
+                        <span ng-show="sortType == 'City' && sortReverse" class="fa-caret-up"></span>
+                    </th>
+                    <th>
+                        <a href="#" ng-click="sortColumn('Srtreet')">{{translation.STREET}}</a>
+                        <span ng-show="sortType == 'Srtreet' && !sortReverse" class="fa-caret-down"></span>
+                        <span ng-show="sortType == 'Srtreet' && sortReverse" class="fa-caret-up"></span>
+                    </th>
+                    <th>
+                        <a href="#" ng-click="sortColumn('Num')">{{translation.HOUSE}}</a>
+                        <span ng-show="sortType == 'Num' && !sortReverse" class="fa-caret-down"></span>
+                        <span ng-show="sortType == 'Num' && sortReverse" class="fa-caret-up"></span>
+                    </th>
+                    <th>
+                        <a href="#" ng-click="sortColumn('Index')">{{translation.INDEX}}</a>
+                        <span ng-show="sortType == 'Index' && !sortReverse" class="fa-caret-down"></span>
+                        <span ng-show="sortType == 'Index' && sortReverse" class="fa-caret-up"></span>
+                    </th>
+                    <th>
+                        <a href="#" ng-click="sortColumn('Date')">{{translation.DATE}}</a>
+                        <span ng-show="sortType == 'Date' && !sortReverse" class="fa-caret-down"></span>
+                        <span ng-show="sortType == 'Date' && sortReverse" class="fa-caret-up"></span>
+                    </th>
+                </tr>
 
-    <table class="table table-striped table-bordered">
-        <thead>
-            <tr>
-                <th>
-                    <a href="#" ng-click="sortColumn('Id')">№</a>
-                    <span ng-show="sortType == 'Id' && !sortReverse" class="fa-caret-down"></span>
-                    <span ng-show="sortType == 'Id' && sortReverse" class="fa-caret-up"></span>
-                </th>
-                <th>
-                    <a href="#" ng-click="sortColumn('Country')">{{translation.COUNTRY}}</a>
-                    <span ng-show="sortType == 'Country' && !sortReverse" class="fa-caret-down"></span>
-                    <span ng-show="sortType == 'Country' && sortReverse" class="fa-caret-up"></span>
-                </th>
-                <th>
-                    <a href="#" ng-click="sortColumn('City')">{{translation.CITY}}</a>
-                    <span ng-show="sortType == 'City' && !sortReverse" class="fa-caret-down"></span>
-                    <span ng-show="sortType == 'City' && sortReverse" class="fa-caret-up"></span>
-                </th>
-                <th>
-                    <a href="#" ng-click="sortColumn('Srtreet')">{{translation.STREET}}</a>
-                    <span ng-show="sortType == 'Srtreet' && !sortReverse" class="fa-caret-down"></span>
-                    <span ng-show="sortType == 'Srtreet' && sortReverse" class="fa-caret-up"></span>
-                </th>
-                <th>
-                    <a href="#" ng-click="sortColumn('Num')">{{translation.HOUSE}}</a>
-                    <span ng-show="sortType == 'Num' && !sortReverse" class="fa-caret-down"></span>
-                    <span ng-show="sortType == 'Num' && sortReverse" class="fa-caret-up"></span>
-                </th>
-                <th>
-                    <a href="#" ng-click="sortColumn('Index')">{{translation.INDEX}}</a>
-                    <span ng-show="sortType == 'Index' && !sortReverse" class="fa-caret-down"></span>
-                    <span ng-show="sortType == 'Index' && sortReverse" class="fa-caret-up"></span>
-                </th>
-                <th>
-                    <a href="#" ng-click="sortColumn('Date')">{{translation.DATE}}</a>
-                    <span ng-show="sortType == 'Date' && !sortReverse" class="fa-caret-down"></span>
-                    <span ng-show="sortType == 'Date' && sortReverse" class="fa-caret-up"></span>
-                </th>
-            </tr>
-            
-        </thead>
-        <tbody>
-            <tr>
-                <th><a class='btn btn-default' href='#' ng-click="filter()"><img src="~/App/image/filte.png" /></a></th>
-                <th><input type="text" class="form-control" ng-model="my_filter.f_country"></th>
-                <th><input type="text" class="form-control" ng-model="my_filter.f_city"></th>
-                <th><input type="text" class="form-control" ng-model="my_filter.f_street"></th>
-                <th><input type="text" class="form-control" ng-model="my_filter.f_house"  ng-click="sliderDialog()" \></th>
-                <th><input type="text" class="form-control" maxlength="6" ng-model="my_filter.f_index"></th>
-                <th><input type="text" class="form-control " id="daterange" /></th>
-    
-            </tr>
-            <tr ng-repeat="adr in ListAddress">
-                @*Формируем стороки для вывода данных*@
-                <td>{{adr.Id}}</td>
-                <td>{{adr.Country}}</td>
-                <td>{{adr.City}}</td>
-                <td>{{adr.Street}}</td>
-                <td>{{adr.Number}}</td>
-                <td>{{adr.Index}}</td>
-                <td>{{adr.Date.substring(6,19) | date: 'medium'}}</td>
-            </tr>
-            <tr>
-                <td colspan="6" align="center">
-                    <div class="pagination-wrap">
-                        <ul class="pagination">
-                            <li ng-repeat="page in paginationList" ng-click="showPage(page.link)" ng-class="{'active': currentPageNum() == page.link}"><a ng-bind-html="page.name">tr</a></li>
-                        </ul>
-                    </div>
-                </td>
-                <td></td>
-            </tr>
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+
+                <tr>
+                    <th><a class='btn btn-default' href='#' ng-click="filter()" ng-show="filter.$valid"><img src="~/App/image/filte.png" /></a></th>
+                    <th><input type="text" class="form-control" ng-model="my_filter.f_country" maxlength="20" ng-pattern="/^[а-я,А-Я,a-z,A-Z]{0,20}$/" \></th>
+                    <th><input type="text" class="form-control" ng-model="my_filter.f_city" maxlength="20" ng-pattern="/^[а-я,А-Я,a-z,A-Z]{0,20}$/"></th>
+                    <th><input type="text" class="form-control" ng-model="my_filter.f_street" maxlength="20" ng-pattern="/^[а-я,А-Я,a-z,A-Z, ,/,.]{0,20}$/" \></th>
+                    <th><input type="text" class="form-control" ng-model="my_filter.f_house" ng-click="sliderDialog()" maxlength="7" ng-pattern="/^\d{1,3}-\d{1,3}$/" \></th>
+                    <th><input type="text" class="form-control" maxlength="6" ng-model="my_filter.f_index" ng-pattern="/^\d{6}$/"></th>
+                    <th><input type="text" class="form-control " id="daterange" ng-pattern="/^\d\d/\d\d/\d\d\d\d \d\d:\d\d (AM|PM) - \d\d/\d\d/\d\d\d\d \d\d:\d\d (AM|PM)$/" /></th>
+                </tr>
+                <tr ng-repeat="adr in ListAddress">
+                    @*Формируем стороки для вывода данных*@
+                    <td>{{adr.Id}}</td>
+                    <td>{{adr.Country}}</td>
+                    <td>{{adr.City}}</td>
+                    <td>{{adr.Street}}</td>
+                    <td>{{adr.Number}}</td>
+                    <td>{{adr.Index}}</td>
+                    <td>{{adr.Date.substring(6,19) | date: 'medium'}}</td>
+                </tr>
+                <tr>
+                    <td colspan="6" align="center">
+                        <div class="pagination-wrap">
+                            <ul class="pagination">
+                                <li ng-repeat="page in paginationList" ng-click="showPage(page.link)" ng-class="{'active': currentPageNum() == page.link}"><a ng-bind-html="page.name">tr</a></li>
+                            </ul>
+                        </div>
+                    </td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
     <pop-up-dialog></pop-up-dialog>
 </div>
 

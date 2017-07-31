@@ -37,7 +37,7 @@ adrApp.controller('myCtrl',
     }
 
     $scope.activateFilter = function () {
-        $scope.my_filter.f_house = 'zxcv';//$scope.my_filter.f_number_min - $scope.my_filter.f_number_max;
+        $scope.my_filter.f_house = ''+$scope.my_filter.f_number_min +'-'+ $scope.my_filter.f_number_max;//$scope.my_filter.f_number_min - $scope.my_filter.f_number_max;
         console.log("activateFilter");
     }
 

@@ -46,3 +46,8 @@ container {
   width: 80%;
   margin: 0 auto;
 }
+
+input.ng-invalid {
+    border: 2px solid red;
+}
+

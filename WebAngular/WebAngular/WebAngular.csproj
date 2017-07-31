@@ -160,6 +160,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Generator\GeneratorData.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -171,6 +172,8 @@
     <Content Include="App\css\angular-range-slider.css" />
     <Content Include="App\css\daterangepicker.css" />
     <Content Include="App\css\myStyle.css" />
+    <Content Include="App\data\city.txt" />
+    <Content Include="App\data\street.txt" />
     <Content Include="App\image\caret-up.png" />
     <Content Include="App\image\caret-down.png" />
     <Content Include="App\image\filte.png" />

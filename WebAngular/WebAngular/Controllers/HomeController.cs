@@ -4,26 +4,41 @@ using System.Linq;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
+using WebAngular.Generator;
 using WebAngular.Models;
 
 namespace WebAngular.Controllers
 {
     public class HomeController : Controller
     {
-        AddressContext db = new AddressContext();
-        public ActionResult Index()
-        {
-            
+        AddressContext db = new AddressContext();   //контекст данных
+
+        /// <summary>
+        /// Генерируем данные для БД
+        /// </summary>
+        private void generationDatoFromDB() {
+            List<Addres> arrAdr = new List<Addres>();
+            GeneratorData gd = new GeneratorData();
+            //Генер
             using (AddressContext db = new AddressContext())
             {
-                // создаем два объекта User
-                Addres adr1 = new Addres {Country="Россия", City="Ульяновск", Street="Гончарова", Number=33, Index=457825, Date=DateTime.Now };
-
-                // добавляем их в бд
-                //db.Address.Add(adr1);
-                //db.SaveChanges();
+                try
+                {
+                    arrAdr = gd.getRecords(80);
+                    // добавляем их в бд
+                    db.Address.AddRange(arrAdr);
+                    db.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                }
             }
-                return View();
+        }
+        
+        public ActionResult Index()
+        {
+            generationDatoFromDB();
+            return View();
         }
 
         [HttpGet]
