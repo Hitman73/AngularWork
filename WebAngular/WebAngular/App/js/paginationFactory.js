@@ -1,7 +1,7 @@
 ﻿//фабрика для пагинации
 adrApp.factory('pagination', function ($sce) {
     var currentPage = 0;        //текущая страница
-    var itemsPerPage = 5;      //кол-во записей на странице
+    var itemsPerPage = 100;      //кол-во записей на странице
     var maxPage = 10;           //макс кол-во страниц для пагинации 
     var listPage = 0;
     var address = [];           //массив адресов

@@ -12,26 +12,27 @@ namespace WebAngular.Controllers
     public class HomeController : Controller
     {
         AddressContext db = new AddressContext();   //контекст данных
-
+        List<Addres> arrAdr = new List<Addres>();
+        GeneratorData gd = new GeneratorData();
         /// <summary>
         /// Генерируем данные для БД
         /// </summary>
         private void generationDatoFromDB() {
-            List<Addres> arrAdr = new List<Addres>();
-            GeneratorData gd = new GeneratorData();
-            //Генер
-            using (AddressContext db = new AddressContext())
+            
+            //Генерируем записи
+             try
             {
-                try
+                arrAdr = gd.getRecords(90);
+                foreach(Addres adr in arrAdr)
                 {
-                    arrAdr = gd.getRecords(80);
                     // добавляем их в бд
-                    db.Address.AddRange(arrAdr);
-                    db.SaveChanges();
+                    db.Address.Add(adr);
                 }
-                catch (Exception ex)
-                {
-                }
+                db.SaveChanges();
+            } 
+             catch (System.Data.Entity.Infrastructure.DbUpdateException ex)
+            {
+                string str = ex.Message;
             }
         }
         
@@ -52,48 +53,79 @@ namespace WebAngular.Controllers
         }
 
         [HttpPost]
-        public string SetPages() //вернем кол-во страниц удовлетворяющих запросу
+        public ActionResult SortFilterColumn() //сортируем таблицу по столбцу
         {
-            int a = Int32.Parse(Request.Params["id"]);
-            
-            return "<h2>Площадь треугольника с основанием " + a + "</h2>";
-        }
+            string sortType  = Request.Params["sortType"];
+            string sortReverse = Request.Params["sortReverse"];
+            string country = Request.Params["f_country"];
+            string city = Request.Params["f_city"];
+            string street = Request.Params["f_street"];
+            string f_house = Request.Params["f_house"];            
+            int f_number_min = Int32.Parse(Request.Params["f_number_min"]);
+            int f_number_max = Int32.Parse(Request.Params["f_number_max"]);
+            string index = Request.Params["f_index"];
+            string date = Request.Params["f_date"];
 
-        [HttpPost]
-        public ActionResult SortColumn(string sortType, string sortReverse) //сортируем таблицу по столбцу
-        {
-            //string sortType  = Request.Params["sortType"];
-            //string sortReverse = Request.Params["sortReverse"];
-            IOrderedQueryable<Addres> sortDate;
+            string f_StartDate = Request.Params["f_StartDate"];
+            string f_EndDate = Request.Params["f_EndDate"];
+
+            // получаем объекты из бд
+            var address = db.Address;
+            //Отфильтруем по Стране, Городу и улице
+            var f_date = db.Address.Where(p => p.Country.Contains(country) && p.City.Contains(city) && p.Street.Contains(street));
+
+            //Фильтруем по номеру дома
+            if (f_house != "")
+            {
+                f_date = f_date.Where(p => (p.Number >= f_number_min) && ((p.Number <= f_number_max)));
+            }
+
+            //Фильтруем по индексу
+            if (index != "")
+            {
+                int ind = Int32.Parse(index);
+                f_date = f_date.Where(p => p.Index == ind);
+            }
+
+            //Фильтруем по дате
+            if (date != "")
+            {
+                try
+                {
+                    DateTime dt = DateTime.Parse(f_StartDate);
+                    //f_date = f_date.Where(p => (p.Date.Ticks >= DateTime.Parse(f_StartDate).Ticks) && ((p.Date.Ticks <= DateTime.Parse(f_EndDate).Ticks)));
+                }
+                catch (ArgumentNullException ex) { }
+            }
 
             switch (sortType) {
                 case "Id":
-                    sortDate = (sortReverse == "false") ? db.Address.OrderByDescending(p => p.Id) : db.Address.OrderBy(p => p.Id);
+                    f_date = (sortReverse == "false") ? f_date.OrderByDescending(p => p.Id) : f_date.OrderBy(p => p.Id);
                     break;
                 case "Country":
-                    sortDate = (sortReverse == "false") ? db.Address.OrderByDescending(p => p.Country) : db.Address.OrderBy(p => p.Country);
+                    f_date = (sortReverse == "false") ? f_date.OrderByDescending(p => p.Country) : f_date.OrderBy(p => p.Country);
                     break;
                 case "City":
-                    sortDate = (sortReverse == "false") ? db.Address.OrderByDescending(p => p.City) : db.Address.OrderBy(p => p.City);
+                    f_date = (sortReverse == "false") ? f_date.OrderByDescending(p => p.City) : f_date.OrderBy(p => p.City);
                     break;
                 case "Street":
-                    sortDate = (sortReverse == "false") ? db.Address.OrderByDescending(p => p.Street) : db.Address.OrderBy(p => p.Street);
+                    f_date = (sortReverse == "false") ? f_date.OrderByDescending(p => p.Street) : f_date.OrderBy(p => p.Street);
                     break;
                 case "Num":
-                    sortDate = (sortReverse == "false") ? db.Address.OrderByDescending(p => p.Number) : db.Address.OrderBy(p => p.Number);
+                    f_date = (sortReverse == "false") ? f_date.OrderByDescending(p => p.Number) : f_date.OrderBy(p => p.Number);
                     break;
                 case "Index":
-                    sortDate = (sortReverse == "false") ? db.Address.OrderByDescending(p => p.Index) : db.Address.OrderBy(p => p.Index);
+                    f_date = (sortReverse == "false") ? f_date.OrderByDescending(p => p.Index) : f_date.OrderBy(p => p.Index);
                     break;
                 case "Date":
-                    sortDate = (sortReverse == "false") ? db.Address.OrderByDescending(p => p.Date) : db.Address.OrderBy(p => p.Date);
+                    f_date = (sortReverse == "false") ? f_date.OrderByDescending(p => p.Date) : f_date.OrderBy(p => p.Date);
                     break;
                 default:
-                    sortDate = (sortReverse == "false") ? db.Address.OrderByDescending(p => p.Id) : db.Address.OrderBy(p => p.Id);
+                    f_date = (sortReverse == "false") ? f_date.OrderByDescending(p => p.Id) : f_date.OrderBy(p => p.Id);
                     break;
             }
 
-            return Json(sortDate, JsonRequestBehavior.AllowGet); // и наш объект address сериализован
+            return Json(f_date, JsonRequestBehavior.AllowGet); // и наш объект address сериализован
         }
 
         [HttpPost]
@@ -114,11 +146,7 @@ namespace WebAngular.Controllers
 
             //Фильтруем по номеру
             f_date = f_date.Where(p => (p.Number >= f_number_min) && ((p.Number <= f_number_max)));
-            /*if (number != "")
-            {
-                int num = Int32.Parse(number);
-                f_date = f_date.Where(p => p.Number == num);
-            }*/
+
             //Фильтруем по индексу
             if (index != "")
             {

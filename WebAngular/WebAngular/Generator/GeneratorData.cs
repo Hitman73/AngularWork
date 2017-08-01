@@ -116,7 +116,7 @@ namespace WebAngular.Generator
             int indStreet = 0;  // сгенерированный индекс улицы
             int numHouse = 1;   // номер дома 
             int index = 111111; // индекс
-
+            DateTime dtStart = new DateTime(2008, 1, 1);
             List<Addres> arrAdr = new List<Addres>();
 
             List<string> lCountry = new List<string>();
@@ -129,22 +129,17 @@ namespace WebAngular.Generator
 
             for (int i = 0; i < count; i++)
             {
-                Addres rec = new Addres();
                 //генерируем индексы и данные
                 indCity = rnd.Next(0, lCity.Count - 1);
                 indStreet = rnd.Next(0, lStreet.Count - 1);
                 index = rnd.Next(111111, 1000000);
                 numHouse = rnd.Next(1, 301);
+                //генерируем дату
+                DateTime dtGen = dtStart.AddDays(rnd.Next(100)).AddSeconds(rnd.Next(1000));
 
-                rec.Id = 0;
-                rec.Country = lCountry[0];
-                rec.City = lCity[indCity];
-                rec.Street = lStreet[indStreet];
-                rec.Number = numHouse;
-                rec.Index = index;
-                rec.Date = DateTime.Now;
-
-                arrAdr.Add(rec);
+                arrAdr.Add(new Addres {Country = lCountry[0] , City = lCity[indCity] , Street = lStreet[indStreet] ,
+                            Number = numHouse, Index = index, Date = dtGen
+                });
             }
             return arrAdr;
         }
