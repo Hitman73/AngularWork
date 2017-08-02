@@ -39,8 +39,20 @@ adrApp.controller('myCtrl',
         console.log($scope.dateRange);
     }
 
+    $scope.saveToLog = function (operation, text) {
+        console.log(operation, text);
+        $http({ method: 'GET', url: '/Home/SaveLog', params: { operation: operation, text: text } }).
+            then(function success(response) {
+                console.log(response.data);
+            })
+    };
+
     //Выполняем перевод, если произошло событие смены языка
     $scope.translate = function () {
+        //запишем лог
+        var strText = 'переключения языка на ' + $scope.selectedLanguage;
+        $scope.saveToLog('Переключения языка', strText);
+        //переведем страницу
         translationService.getTranslation($scope, $scope.selectedLanguage);
     };
     // Инициализация
@@ -64,16 +76,20 @@ adrApp.controller('myCtrl',
         $scope.my_filter.f_EndDate = endDate;
     }
 
-    $http.get('http://localhost:9476//Home//GetAddress') //наш контроллер с методом для получания списка
+    //получим данные из БД
+    $http({ method: 'GET', url: '/Home/SortFilterColumn', params: $scope.my_filter })
         .then(function success(result) {
-            //$scope.ListAddress = result.data; //получили и передали в $scope.todos, тут нужно многое сказать про $scope, но все это уже есть в официальном справочнике на ихнем же сайте/
             pagination.fillArrayAddress(result.data);
             $scope.ListAddress = pagination.getPageAddress(0);
             $scope.paginationList = pagination.getPaginationList();
         });
 
+    //переход на страницу
     $scope.showPage = function (page) {
-        console.log(page);
+        //запишем лог
+        var strText = 'переход на новую страницу ';
+        $scope.saveToLog('Переход на страницу', strText);
+
         if (page == 'prev') {
             $scope.ListAddress = pagination.getPrevPageAddress();
         } else if (page == 'next') {
@@ -89,13 +105,16 @@ adrApp.controller('myCtrl',
         return pagination.getCurrentPageNum();
     };
     // сортировка по столбцу
-    $scope.sortColumn = function (sortType) {
+    $scope.sortColumn = function (sortType) {        
         $scope.my_filter.sortType = sortType;
         $scope.my_filter.sortReverse = !$scope.my_filter.sortReverse;
+        //запишем лог
+        var strText = 'сортировка по столбцу ' + sortType + ($scope.my_filter.sortReverse == false ? ' по убыванию' : ' по возрастанию');
+        $scope.saveToLog('Сортировка', strText);
 
         $scope.old_my_filter.sortType = $scope.my_filter.sortType;
         $scope.old_my_filter.sortReverse = $scope.my_filter.sortReverse;
-        $http({ method: 'POST', url: 'http://localhost:9476//Home//SortFilterColumn', params: $scope.old_my_filter }).
+        $http({ method: 'GET', url: '/Home/SortFilterColumn', params: $scope.old_my_filter }).
          then(function success(response) {
              pagination.fillArrayAddress(response.data);
              $scope.ListAddress = pagination.getPageAddress(0);
@@ -130,8 +149,15 @@ adrApp.controller('myCtrl',
     };
 
     $scope.filter = function () {
+        //запишем лог
+        var strText = 'параметры фильтра : Страна = ' + $scope.my_filter.f_country + ', Город = ' + $scope.my_filter.f_city + 
+            ', Улица = ' + $scope.my_filter.f_street + ', Номер дома = ' +  $scope.my_filter.f_house + 
+            ', Индекс = ' + $scope.my_filter.f_index + ', Дата = ' + $scope.my_filter.f_date;
+        $scope.saveToLog('Фильтрация', strText);
+        //сохраним фильтр
         $scope.saveFilter();
-        $http({ method: 'POST', url: 'http://localhost:9476//Home//SortFilterColumn', params: $scope.my_filter }).
+
+        $http({ method: 'GET', url: '/Home/SortFilterColumn', params: $scope.my_filter }).
          then(function success(response) {
              pagination.fillArrayAddress(response.data);
              $scope.ListAddress = pagination.getPageAddress(0);
@@ -141,6 +167,7 @@ adrApp.controller('myCtrl',
     };
         //Функция сброса фильтра
     $scope.resetFilter = function () {
+        $scope.saveToLog('Сброс фильтра', 'сброс фильтра');
         console.log($scope.filterForm.$valid);
         $scope.my_filter.f_country = '';
         $scope.my_filter.f_city = '';
@@ -157,7 +184,6 @@ adrApp.controller('myCtrl',
 
         //сохраним настройки фильтра
     $scope.saveFilter = function () {
-        console.log($scope.filterForm.$valid);
         $scope.old_my_filter.f_country = $scope.my_filter.f_country;
         $scope.old_my_filter.f_city = $scope.my_filter.f_city;
         $scope.old_my_filter.f_street = $scope.my_filter.f_street;

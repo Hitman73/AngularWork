@@ -10,14 +10,21 @@ namespace WebAngular.Generator
 {
     public class GeneratorData
     {
+        public string pathToFile { get; }
+
+        public GeneratorData(string path) {
+            pathToFile = path;
+        }
         /// <summary>
         /// Возвращает абсолютный путь к файлу fileName
         /// </summary>
-        /// <param name="fileName">имя файла</param>
+        /// <param name="path">папка с файлом</param>
+        /// /// <param name="fileName">имя файла</param>
         /// <returns></returns>
-        private string getabsolutePathToFile(string fileName) {
-            string appDataPath = System.Web.HttpContext.Current.Server.MapPath(@"~/App/data");
-            string absolutePathToFile = Path.Combine(appDataPath, fileName);
+        private string getabsolutePathToFile(string fileName)
+        {
+            //string appDataPath = System.Web.HttpContext.Current.Server.MapPath(pathToFile);
+            string absolutePathToFile = Path.Combine(pathToFile, fileName);
 
             return absolutePathToFile;
         }
@@ -29,7 +36,8 @@ namespace WebAngular.Generator
         private List<string> getCity()
         {
             List<string> arrCity = new List<string>();
-            
+
+            //using (StreamReader sr = new StreamReader(getabsolutePathToFile(@"~/App/data", "city.txt")))
             using (StreamReader sr = new StreamReader(getabsolutePathToFile("city.txt")))
             {
                 string line;
@@ -48,7 +56,7 @@ namespace WebAngular.Generator
         private List<string> getStreet()
         {
             List<string> arrStreet = new List<string>();
-            using (StreamReader sr = new StreamReader(getabsolutePathToFile("street.txt")))
+            using(StreamReader sr = new StreamReader(getabsolutePathToFile("street.txt")))
             {
                 string line;
                 while ((line = sr.ReadLine()) != null)

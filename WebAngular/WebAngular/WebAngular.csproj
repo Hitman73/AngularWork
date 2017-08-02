@@ -164,6 +164,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Logirovanie\LogicSave.cs" />
     <Compile Include="Models\Addres.cs" />
     <Compile Include="Models\AddressContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

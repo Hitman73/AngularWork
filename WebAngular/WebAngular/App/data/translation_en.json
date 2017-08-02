@@ -4,5 +4,6 @@
     "STREET": "Street",
     "HOUSE" : "House",
     "INDEX" : "Index",
-    "DATE"  : "Date"
+  "DATE": "Date",
+  "RESET"  : "Reset filter"
 }
