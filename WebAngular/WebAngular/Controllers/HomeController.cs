@@ -7,37 +7,12 @@ using System.Web;
 using System.Web.Mvc;
 using WebAngular.Generator;
 using WebAngular.Logirovanie;
-using WebAngular.Models;
 
 namespace WebAngular.Controllers
 {
     public class HomeController : Controller
     {
-        AddressContext db = new AddressContext();   //контекст данных
-        List<Addres> arrAdr = new List<Addres>();
-        
-        /// <summary>
-        /// Генерируем данные для БД
-        /// </summary>
-        private void generationDatoFromDB() {
-            string appDataPath = System.Web.HttpContext.Current.Server.MapPath(@"~/App/data");
-            GeneratorData gd = new GeneratorData(appDataPath);
-            //Генерируем записи
-            try
-            {
-                arrAdr = gd.getRecords(90);
-                foreach(Addres adr in arrAdr)
-                {
-                    // добавляем их в бд
-                    db.Address.Add(adr);
-                }
-                db.SaveChanges();
-            } 
-             catch (System.Data.Entity.Infrastructure.DbUpdateException ex)
-            {
-                string str = ex.Message;
-            }
-        }
+        DBAddressEntities db = new DBAddressEntities();   //контекст данных
 
         /// <summary>
         /// Запись в лог-файл
@@ -54,7 +29,6 @@ namespace WebAngular.Controllers
         }
         public ActionResult Index()
         {
-            generationDatoFromDB();
             return View();
         }
         /// <summary>
@@ -79,9 +53,9 @@ namespace WebAngular.Controllers
                 DateTime? f_StartDate, DateTime? f_EndDate, string sortType, bool? sortReverse) //сортируем таблицу по столбцу
         {
             // получаем объекты из бд
-            var address = db.Address;
+            var address = db.Addres;
             //Отфильтруем по Стране, Городу и улице
-            var f_data = db.Address.Where(p => p.Country.Contains(f_country) && p.City.Contains(f_city) && p.Street.Contains(f_street));
+            var f_data = db.Addres.Where(p => p.Country.Contains(f_country) && p.City.Contains(f_city) && p.Street.Contains(f_street));
 
             //Фильтруем по номеру дома
             if (f_house != "")

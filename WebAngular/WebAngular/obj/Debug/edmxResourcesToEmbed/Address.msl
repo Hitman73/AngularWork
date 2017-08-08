@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Хранилище AddressModelContainer" CdmEntityContainer="DBAddressEntities">
+    <EntitySetMapping Name="Addres">
+      <EntityTypeMapping TypeName="AddressModel.Addres">
+        <MappingFragment StoreEntitySet="Addres">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Country" ColumnName="Country" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="Street" ColumnName="Street" />
+          <ScalarProperty Name="Number" ColumnName="Number" />
+          <ScalarProperty Name="Index" ColumnName="Index" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="sp_InsertAddress" FunctionName="Хранилище AddressModel.sp_InsertAddress" />
+  </EntityContainerMapping>
+</Mapping>

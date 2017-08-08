@@ -156,20 +156,42 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Addres.cs">
+      <DependentUpon>Address.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Address.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Address.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Address.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Address.edmx</DependentUpon>
+    </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Generator\GeneratorData.cs" />
+    <Compile Include="Generator\GeneratorDataFromDB.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Logirovanie\LogicSave.cs" />
-    <Compile Include="Models\Addres.cs" />
-    <Compile Include="Models\AddressContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Address.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Address.edmx</DependentUpon>
+      <LastGenOutput>Address.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Address.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Address.edmx</DependentUpon>
+      <LastGenOutput>Address.cs</LastGenOutput>
+    </Content>
     <Content Include="App\css\angular-range-slider.css" />
     <Content Include="App\css\daterangepicker.css" />
     <Content Include="App\css\myStyle.css" />
@@ -188,10 +210,6 @@
     <Content Include="App\js\lib\moment.js" />
     <Content Include="App\js\lib\moment.min.js" />
     <Content Include="App\SliderDialog.html" />
-    <Content Include="App_Data\DBAddres.mdf" />
-    <Content Include="App_Data\DBAddres_log.ldf">
-      <DependentUpon>DBAddres.mdf</DependentUpon>
-    </Content>
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -255,6 +273,13 @@
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="App\data\translation_en.json" />
     <Content Include="App\data\translation_ru.json" />
+    <EntityDeploy Include="Address.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Address.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Address.edmx.diagram">
+      <DependentUpon>Address.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\i18n\angular-locale_af-na.js" />
     <Content Include="Scripts\i18n\angular-locale_af-za.js" />
@@ -1028,7 +1053,10 @@
     <None Include="Project_Readme.html" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Models\" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

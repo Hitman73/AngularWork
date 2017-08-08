@@ -2,7 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using WebAngular.Generator;
 using static System.Net.Mime.MediaTypeNames;
-using WebAngular.Models;
+using WebAngular;
 using System.Collections.Generic;
 
 namespace WebAngularTests

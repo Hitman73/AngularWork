@@ -16,6 +16,8 @@ namespace WebAngular
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+            WebAngular.Generator.GeneratorDataFromDB.generationData(1000);
         }
     }
 }
