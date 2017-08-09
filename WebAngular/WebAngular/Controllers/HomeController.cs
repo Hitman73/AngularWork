@@ -1,18 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
+﻿using NLog;
+using System;
 using System.Linq;
-using System.Text;
-using System.Web;
 using System.Web.Mvc;
-using WebAngular.Generator;
-using WebAngular.Logirovanie;
 
 namespace WebAngular.Controllers
 {
     public class HomeController : Controller
     {
         DBAddressEntities db = new DBAddressEntities();   //контекст данных
+        private static Logger logger = LogManager.GetCurrentClassLogger();  //создаем лог
 
         /// <summary>
         /// Запись в лог-файл
@@ -22,10 +18,9 @@ namespace WebAngular.Controllers
         [HttpGet]
         public void SaveLog(string operation, string text) //фильтрация данных
         {
-            string appDataPath = System.Web.HttpContext.Current.Server.MapPath(@"~/App/data");
-            string absolutePathToFile = Path.Combine(appDataPath, "log.txt");
-            //сохраним в файл
-            LogicSave.saveToFile(absolutePathToFile, operation, text);
+            //сохраним лог
+            // файл сохраняется в корне, имя - nlog.txt
+            logger.Debug(string.Format("{0} : {1}", operation, text));
         }
         public ActionResult Index()
         {
@@ -107,7 +102,7 @@ namespace WebAngular.Controllers
                     f_data = (sortReverse == false) ? f_data.OrderByDescending(p => p.Id) : f_data.OrderBy(p => p.Id);
                     break;
             }
-
+            f_data = f_data.Take(300);
             return Json(f_data, JsonRequestBehavior.AllowGet); // и наш объект address сериализован
         }        
     }

@@ -17,7 +17,7 @@ namespace WebAngular
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
-            WebAngular.Generator.GeneratorDataFromDB.generationData(1000);
+            //WebAngular.Generator.GeneratorDataFromDB.generationData(1000);
         }
     }
 }

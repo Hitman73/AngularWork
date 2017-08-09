@@ -64,3 +64,6 @@ D:\C#\AngularWork\WebAngular\WebAngular\obj\Debug\WebAngular.dll
 D:\C#\AngularWork\WebAngular\WebAngular\obj\Debug\WebAngular.pdb
 D:\C#\AngularWork\WebAngular\WebAngular\bin\ru\EntityFramework.SqlServer.resources.dll
 D:\C#\AngularWork\WebAngular\WebAngular\obj\Debug\WebAngular.csprojResolveAssemblyReference.cache
+D:\C#\AngularWork\WebAngular\WebAngular\bin\NLog.config
+D:\C#\AngularWork\WebAngular\WebAngular\bin\NLog.dll
+D:\C#\AngularWork\WebAngular\WebAngular\bin\NLog.xml
