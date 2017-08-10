@@ -46,13 +46,13 @@ adrApp.factory('pagination', function ($sce) {
                 // more than 10 total pages so calculate start and end pages
                 if (currentPage < 5) {
                     startPage = 0;
-                    endPage = 10-1;
-                } else if (currentPage + 4 >= totalPages) {
-                    startPage = totalPages - 9-1;
-                    endPage = totalPages-1;
+                    endPage = 10;
+                } else if (currentPage + 5 >= totalPages) {
+                    startPage = totalPages - 10;
+                    endPage = totalPages;
                 } else {
-                    startPage = currentPage - 5;
-                    endPage = currentPage + 4;
+                    startPage = currentPage - 4;
+                    endPage = currentPage + 6;
                 }
             }
             console.log(currentPage, startPage, endPage, totalPages);
@@ -66,7 +66,7 @@ adrApp.factory('pagination', function ($sce) {
 
 
             //for (var i = 0; i < pagesNum; i++) {
-            for (var i = startPage; i <= (endPage) ; i++) {
+            for (var i = startPage; i < (endPage) ; i++) {
                 var name = i + 1;
                 paginationList.push({
                     name: $sce.trustAsHtml(String(name)),

@@ -203,6 +203,7 @@
     <Content Include="App\image\caret-up.png" />
     <Content Include="App\image\caret-down.png" />
     <Content Include="App\image\filte.png" />
+    <Content Include="App\image\glyphicons-remove.png" />
     <Content Include="App\js\PagerService.js" />
     <Content Include="App\js\paginationFactory.js" />
     <Content Include="App\js\popUpDialogDirective.js" />

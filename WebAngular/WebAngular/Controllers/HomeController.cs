@@ -102,7 +102,7 @@ namespace WebAngular.Controllers
                     f_data = (sortReverse == false) ? f_data.OrderByDescending(p => p.Id) : f_data.OrderBy(p => p.Id);
                     break;
             }
-            f_data = f_data.Take(300);
+            f_data = f_data.Take(100);
             return Json(f_data, JsonRequestBehavior.AllowGet); // и наш объект address сериализован
         }        
     }

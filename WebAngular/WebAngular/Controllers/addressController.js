@@ -195,4 +195,29 @@ adrApp.controller('myCtrl',
         $scope.old_my_filter.f_StartDate = $scope.my_filter.f_StartDate;
         $scope.old_my_filter.f_EndDate = $scope.my_filter.f_EndDate;
     };
+
+    $scope.clear_filter = function (param) {
+        if (param == 'country') {
+            $scope.my_filter.f_country = '';
+        } else if (param == 'city') {
+            $scope.my_filter.f_city = '';
+        } else if (param == 'street') {
+          $scope.my_filter.f_street = '';
+        } else if (param == 'number') {
+            $scope.my_filter.f_house = '';
+            $scope.my_filter.f_number_min = 1;
+            $scope.my_filter.f_number_max = 200;
+        } else if (param == 'index') {
+            $scope.my_filter.f_index = '';
+        } else if (param == 'date') {
+            $scope.my_filter.f_date = '';
+            $scope.my_filter.f_StartDate = '';
+            $scope.my_filter.f_EndDate = '';
+        }
+        $scope.saveToLog('Сброс фильтра по полю ', param);
+        //сохраним фильтр
+        $scope.saveFilter();
+        console.log(param);
+    }
+
 });

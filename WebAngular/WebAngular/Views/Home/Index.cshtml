@@ -64,12 +64,54 @@
 
                 <tr>
                     <th><a class='btn btn-default' href='#' ng-click="filter()" ng-show="filterForm.$valid"><img src="~/App/image/filte.png" /></a></th>
-                    <th><input type="text" class="form-control" ng-model="my_filter.f_country" maxlength="20" ng-pattern="/^[а-я,А-Я,a-z,A-Z]{0,20}$/" \></th>
-                    <th><input type="text" class="form-control" ng-model="my_filter.f_city" maxlength="20" ng-pattern="/^[а-я,А-Я,a-z,A-Z]{0,20}$/"></th>
-                    <th><input type="text" class="form-control" ng-model="my_filter.f_street" maxlength="20" ng-pattern="/^[а-я,А-Я,a-z,A-Z, ,/,.]{0,20}$/" \></th>
-                    <th><input type="text" class="form-control" ng-model="my_filter.f_house" ng-click="sliderDialog()" maxlength="7" ng-pattern="/^\d{1,3}-\d{1,3}$/" \></th>
-                    <th><input type="text" class="form-control" maxlength="6" ng-model="my_filter.f_index" ng-pattern="/^\d{6}$/"></th>
-                    <th><input type="text" class="form-control " ng-model="my_filter.f_date" id="daterange" ng-pattern="/^\d\d/\d\d/\d\d\d\d \d\d:\d\d (AM|PM) - \d\d/\d\d/\d\d\d\d \d\d:\d\d (AM|PM)$/" /></th>
+                    <th>
+                        <div class="icon_remove_right">                            
+                            <input type="text"class="form-control " ng-model="my_filter.f_country" maxlength="20" ng-pattern="/^[а-я,А-Я,a-z,A-Z]{0,20}$/" \> 
+                        </div>
+                        <div>
+                            <button class="btn" href="#" ng-click="clear_filter('country')"><span class="glyphicon glyphicon-remove"></span></button>
+                        </div>
+                    </th>
+                    <th>
+                        <div class="icon_remove_right">
+                            <input type="text" class="form-control" ng-model="my_filter.f_city" maxlength="20" ng-pattern="/^[а-я,А-Я,a-z,A-Z]{0,20}$/">
+                        </div>
+                        <div>
+                            <button class="btn" href="#" ng-click="clear_filter('city')"><span class="glyphicon glyphicon-remove"></span></button>
+                        </div>
+                    </th>
+                    <th>
+                        <div class="icon_remove_right">
+                            <input type="text" class="form-control" ng-model="my_filter.f_street" maxlength="20" ng-pattern="/^[а-я,А-Я,a-z,A-Z, ,/,.]{0,20}$/" \>
+                        </div>
+                        <div>
+                            <button class="btn" href="#" ng-click="clear_filter('street')"><span class="glyphicon glyphicon-remove"></span></button>
+                        </div>
+                    </th>
+                    <th>
+                        <div class="icon_remove_right">
+                            <input type="text" class="form-control" ng-model="my_filter.f_house" ng-click="sliderDialog()" maxlength="7" ng-pattern="/^\d{1,3}-\d{1,3}$/" \>
+                        </div>
+                        <div>
+                            <button class="btn" href="#" ng-click="clear_filter('number')"><span class="glyphicon glyphicon-remove"></span></button>
+                        </div>
+                    </th>
+                    <th>
+                        <div class="icon_remove_right">
+                            <input type="text" class="form-control" maxlength="6" ng-model="my_filter.f_index" ng-pattern="/^\d{6}$/">
+                        </div>
+                        <div>
+                            <button class="btn" href="#" ng-click="clear_filter('index')"><span class="glyphicon glyphicon-remove"></span></button>
+                        </div>
+                    </th>
+                    <th>
+                        <div class="icon_remove_right">
+                            <input type="text" class="form-control " ng-model="my_filter.f_date" id="daterange" ng-pattern="/^\d\d/\d\d/\d\d\d\d \d\d:\d\d (AM|PM) - \d\d/\d\d/\d\d\d\d \d\d:\d\d (AM|PM)$/" /><i class="icon-remove"></i>
+                        </div>
+                        <div>
+                            <button class="btn" href="#" ng-click="clear_filter('date')"><span class="glyphicon glyphicon-remove"></span></button>
+                        </div>
+                    </th>
                 </tr>
                 <tr ng-repeat="adr in ListAddress">
                     @*Формируем стороки для вывода данных*@

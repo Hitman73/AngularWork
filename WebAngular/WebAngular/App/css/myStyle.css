@@ -58,3 +58,7 @@ a.blackColumn {
 .blueColumn {
     color : blue;
 }
+.icon_remove_right {
+    float : left;
+    width : 75%;
+}
