@@ -42,7 +42,8 @@ namespace WebAngular.Generator
                 string line;
                 while ((line = sr.ReadLine()) != null)
                 {
-                    arrCity.Add(line);
+                    if (line.Length > 1)
+                        arrCity.Add(line);
                 }
             }
             return arrCity;
@@ -60,7 +61,8 @@ namespace WebAngular.Generator
                 string line;
                 while ((line = sr.ReadLine()) != null)
                 {
-                    arrStreet.Add(line);
+                    if(line.Length > 1)
+                        arrStreet.Add(line);
                 }
             }
             return arrStreet;
@@ -149,6 +151,43 @@ namespace WebAngular.Generator
                 });
             }
             return arrAdr;
+        }
+
+        /// <summary>
+        /// Вернем список городов
+        /// </summary>
+        /// <returns></returns>
+        public List<Cities> getCityList()
+        {
+            List<string> lCity = new List<string>();
+            List<Cities> arrCity = new List<Cities>();
+
+            lCity = getCity();        //получим список городов
+
+            foreach (string str in lCity) {
+                arrCity.Add(new Cities { id = 1, name = str});
+            }
+
+            return arrCity;
+        }
+
+        /// <summary>
+        /// Вернем список городов
+        /// </summary>
+        /// <returns></returns>
+        public List<Street> getStreetList()
+        {
+            List<string> lStreet = new List<string>();
+            List<Street> arrStreet = new List<Street>();
+
+            lStreet = getStreet();        //получим список городов
+
+            foreach (string str in lStreet)
+            {
+                arrStreet.Add(new Street { id = 1, name = str });
+            }
+
+            return arrStreet;
         }
     }
 }

@@ -1,19 +1,50 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="Хранилище AddressModelContainer" CdmEntityContainer="DBAddressEntities">
-    <EntitySetMapping Name="Addres">
-      <EntityTypeMapping TypeName="AddressModel.Addres">
-        <MappingFragment StoreEntitySet="Addres">
-          <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="Country" ColumnName="Country" />
-          <ScalarProperty Name="City" ColumnName="City" />
-          <ScalarProperty Name="Street" ColumnName="Street" />
-          <ScalarProperty Name="Number" ColumnName="Number" />
-          <ScalarProperty Name="Index" ColumnName="Index" />
-          <ScalarProperty Name="Date" ColumnName="Date" />
+    <EntitySetMapping Name="Cities">
+      <EntityTypeMapping TypeName="AddressModel.Cities">
+        <MappingFragment StoreEntitySet="Cities">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="id" ColumnName="id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <FunctionImportMapping FunctionImportName="sp_InsertAddress" FunctionName="Хранилище AddressModel.sp_InsertAddress" />
+    <EntitySetMapping Name="Addres">
+      <EntityTypeMapping TypeName="AddressModel.Addres">
+        <MappingFragment StoreEntitySet="Addres">
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="Index" ColumnName="Index" />
+          <ScalarProperty Name="Number" ColumnName="Number" />
+          <ScalarProperty Name="Street" ColumnName="Street" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="Country" ColumnName="Country" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Country">
+      <EntityTypeMapping TypeName="AddressModel.Country">
+        <MappingFragment StoreEntitySet="Country">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Street">
+      <EntityTypeMapping TypeName="AddressModel.Street">
+        <MappingFragment StoreEntitySet="Street">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="genRecord" FunctionName="Хранилище AddressModel.genRecord">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="AddressModel.genRecord_Result">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
   </EntityContainerMapping>
 </Mapping>

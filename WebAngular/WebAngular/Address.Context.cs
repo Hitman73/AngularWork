@@ -27,35 +27,14 @@ namespace WebAngular
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<Cities> Cities { get; set; }
         public virtual DbSet<Addres> Addres { get; set; }
+        public virtual DbSet<Country> Country { get; set; }
+        public virtual DbSet<Street> Street { get; set; }           
     
-        public virtual int sp_InsertAddress(string country, string city, string street, Nullable<int> number, Nullable<int> index, Nullable<System.DateTime> date)
+        public virtual ObjectResult<genRecord_Result> genRecord()
         {
-            var countryParameter = country != null ?
-                new ObjectParameter("country", country) :
-                new ObjectParameter("country", typeof(string));
-    
-            var cityParameter = city != null ?
-                new ObjectParameter("city", city) :
-                new ObjectParameter("city", typeof(string));
-    
-            var streetParameter = street != null ?
-                new ObjectParameter("street", street) :
-                new ObjectParameter("street", typeof(string));
-    
-            var numberParameter = number.HasValue ?
-                new ObjectParameter("number", number) :
-                new ObjectParameter("number", typeof(int));
-    
-            var indexParameter = index.HasValue ?
-                new ObjectParameter("index", index) :
-                new ObjectParameter("index", typeof(int));
-    
-            var dateParameter = date.HasValue ?
-                new ObjectParameter("date", date) :
-                new ObjectParameter("date", typeof(System.DateTime));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_InsertAddress", countryParameter, cityParameter, streetParameter, numberParameter, indexParameter, dateParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<genRecord_Result>("genRecord");
         }
     }
 }

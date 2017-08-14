@@ -6,21 +6,38 @@
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Country" Type="nvarchar" MaxLength="20" Nullable="false" />
-    <Property Name="City" Type="nvarchar" MaxLength="20" Nullable="false" />
-    <Property Name="Street" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="City" Type="nvarchar" MaxLength="30" Nullable="false" />
+    <Property Name="Street" Type="nvarchar" MaxLength="60" Nullable="false" />
     <Property Name="Number" Type="int" Nullable="false" />
     <Property Name="Index" Type="int" Nullable="false" />
     <Property Name="Date" Type="datetime" Nullable="false" />
   </EntityType>
-  <Function Name="sp_InsertAddress" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-    <Parameter Name="country" Type="nvarchar" Mode="In" />
-    <Parameter Name="city" Type="nvarchar" Mode="In" />
-    <Parameter Name="street" Type="nvarchar" Mode="In" />
-    <Parameter Name="number" Type="int" Mode="In" />
-    <Parameter Name="index" Type="int" Mode="In" />
-    <Parameter Name="date" Type="datetime" Mode="In" />
-  </Function>
+  <EntityType Name="Cities">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="nvarchar" MaxLength="30" />
+  </EntityType>
+  <EntityType Name="Country">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="nvarchar" MaxLength="20" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Street">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="nvarchar" MaxLength="60" Nullable="false" />
+  </EntityType>
+  <Function Name="genRecord" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
   <EntityContainer Name="Хранилище AddressModelContainer">
     <EntitySet Name="Addres" EntityType="Self.Addres" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Cities" EntityType="Self.Cities" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Country" EntityType="Self.Country" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Street" EntityType="Self.Street" Schema="dbo" store:Type="Tables" />
   </EntityContainer>
 </Schema>

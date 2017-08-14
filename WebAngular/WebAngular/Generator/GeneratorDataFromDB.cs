@@ -15,24 +15,34 @@ namespace WebAngular.Generator
         /// </summary>
         ////<summary>
         /// <param name="count">количество генерируемых записей</param>
-        public static void generationData(int count)
+        public static void generationData()
         {
                
             string appDataPath = System.Web.HttpContext.Current.Server.MapPath(@"~/App/data");
             GeneratorData gd = new GeneratorData(appDataPath);
-            List<Addres> arrAdr = new List<Addres>();
+            List<Cities> city = new List<Cities>();
+            List<Street> street = new List<Street>();
             //Генерируем записи
             try
             {
                 using (DBAddressEntities db = new DBAddressEntities())
-                {   //контекст данных
-                    arrAdr = gd.getRecords(count);
-                    
-                    foreach (Addres adr in arrAdr)
+                {   //добавим города
+                    if (db.Cities.Count() == 0)
                     {
-                        //вызываем хранимую процедуру для добавления записей
-                        db.sp_InsertAddress(adr.Country, adr.City, adr.Street, adr.Number, adr.Index, adr.Date);
+                        city = gd.getCityList();
+                        foreach (Cities c in city) { db.Cities.Add(c); }
+                        db.SaveChanges();
                     }
+
+                    //добавим улицы
+                    if (db.Street.Count() == 0)
+                    {
+                        street = gd.getStreetList();
+                        foreach (Street c in street) { db.Street.Add(c); }
+                        db.SaveChanges();
+                    }
+                    //генерируем записи в таблицу Addres
+                    db.genRecord();                 
                 }
             }
             catch (Exception ex)
