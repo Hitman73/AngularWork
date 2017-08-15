@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NLog;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -10,6 +11,7 @@ namespace WebAngular.Generator
     /// </summary>
     public static class GeneratorDataFromDB
     {
+        private static Logger logger = LogManager.GetCurrentClassLogger();  //создаем лог
         //// <summary>
         /// Генерируем данные для БД
         /// </summary>
@@ -47,7 +49,7 @@ namespace WebAngular.Generator
             }
             catch (Exception ex)
             {
-                string str = ex.Message;
+                logger.Debug(ex.Message);
             }
         }
     }

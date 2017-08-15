@@ -5,39 +5,43 @@ adrApp.factory('pagination', function ($sce) {
     var maxPage = 10;           //макс кол-во страниц для пагинации 
     var listPage = 0;
     var address = [];           //массив адресов
-    var lastPage = 0; 
+    var lastPage = 0;
+    var length = 0;
 
     return {
         //наполняем массив
-        fillArrayAddress: function (new_address) {
+        fillArrayAddress: function (new_address, new_length) {
             address = new_address;
+            length = new_length;
         },
 
         //ввернем записи для одной страници
         getPageAddress: function (numPage) {
-            var numPage = angular.isUndefined(numPage) ? 0 : numPage;
-            var first = itemsPerPage * numPage;
-            var last = first + itemsPerPage;
+            //var numPage = angular.isUndefined(numPage) ? 0 : numPage;
+            //var first = itemsPerPage * numPage;
+            //var last = first + itemsPerPage;
 
-            currentPage = numPage;
+            //currentPage = numPage;
             
-            last = last > address.length ? (address.length) : last;
-            return address.slice(first, last);
+            //last = last > address.length ? (address.length) : last;
+            return address;
         },
 
         //вернем максимальное кол-во страниц
         getPagesMax: function () {
-            return Math.ceil(address.length / itemsPerPage);
+            return Math.ceil(length / itemsPerPage);
         },
 
         //формируем список страниц
-        getPaginationList: function () {
+        getPaginationList: function (page) {
             var pagesNum = this.getPagesMax();
             var paginationList = [];
 
 
             var startPage, endPage;
             var totalPages = pagesNum;
+
+            currentPage = page;
             if (totalPages <= 10) {
                 // less than 10 total pages so show all
                 startPage = 0;
@@ -56,16 +60,12 @@ adrApp.factory('pagination', function ($sce) {
                 }
             }
             console.log(currentPage, startPage, endPage, totalPages);
-            //var startIndex = (currentPage - 1) * pageSize;
-            //var endIndex = Math.min(startIndex + pageSize - 1, address.length - 1);
 
             paginationList.push({
                 name: $sce.trustAsHtml('&laquo;'),
                 link: 'prev'
             });
 
-
-            //for (var i = 0; i < pagesNum; i++) {
             for (var i = startPage; i < (endPage) ; i++) {
                 var name = i + 1;
                 paginationList.push({
@@ -92,18 +92,18 @@ adrApp.factory('pagination', function ($sce) {
         },
 
         //вернем записи для предыдущей страници
-        getPrevPageAddress: function () {
-            var prevPageNum = currentPage - 1;
+        getPrevPageAddress: function (curPage) {
+            var prevPageNum = curPage - 1;
             if (prevPageNum < 0) prevPageNum = 0;
-            return this.getPageAddress(prevPageNum);
+            return prevPageNum;
         },
 
         //вернем записи для следующей страници
-        getNextPageAddress: function () {
-            var nextPageNum = currentPage + 1;
+        getNextPageAddress: function (curPage) {
+            var nextPageNum = curPage + 1;
             var pagesNum = this.getPagesMax();
             if (nextPageNum >= pagesNum) nextPageNum = pagesNum - 1;
-            return this.getPageAddress(nextPageNum);
+            return nextPageNum;
         }
     }
 });

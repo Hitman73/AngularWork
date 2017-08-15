@@ -16,7 +16,8 @@ adrApp.controller('myCtrl',
         f_StartDate: '',
         f_EndDate: '',
         sortType: '',           // значение сортировки по умолчанию
-        sortReverse: true       // обратная сортривка 
+        sortReverse: true,       // обратная сортривка 
+        page : 0
     };
 
     $scope.old_my_filter = {        // значение поиска по умолчанию
@@ -31,7 +32,8 @@ adrApp.controller('myCtrl',
         f_StartDate: '',
         f_EndDate: '',
         sortType: '',
-        sortReverse: true
+        sortReverse: true,
+        page: 0
     };
 
     $scope.DateRange = moment()
@@ -76,29 +78,34 @@ adrApp.controller('myCtrl',
         $scope.my_filter.f_EndDate = endDate;
     }
 
-    //получим данные из БД
-    $http({ method: 'GET', url: '/Home/SortFilterColumn', params: $scope.my_filter })
+    //получаем данные из таблицы
+    $scope.getAddress = function (prm, page) {
+        $scope.my_filter.page = $scope.old_my_filter.page = page;
+        $http({ method: 'GET', url: '/Home/SortFilterColumn', params: prm })
         .then(function success(result) {
-            pagination.fillArrayAddress(result.data);
+            console.log(result.data);
+            pagination.fillArrayAddress(result.data.data, result.data.count);
             $scope.ListAddress = pagination.getPageAddress(0);
-            $scope.paginationList = pagination.getPaginationList();
+            $scope.paginationList = pagination.getPaginationList(page);
         });
+    }
 
+    $scope.getAddress($scope.my_filter, 0);    //получим данные
     //переход на страницу
     $scope.showPage = function (page) {
         //запишем лог
         var strText = 'переход на новую страницу ';
+        var new_page;
         $scope.saveToLog('Переход на страницу', strText);
 
         if (page == 'prev') {
-            $scope.ListAddress = pagination.getPrevPageAddress();
+            new_page = pagination.getPrevPageAddress($scope.my_filter.page);
         } else if (page == 'next') {
-            $scope.ListAddress = pagination.getNextPageAddress();
+            new_page = pagination.getNextPageAddress($scope.my_filter.page);
         } else {
-            $scope.ListAddress = pagination.getPageAddress(page);
+            new_page = page;
         }
-        $scope.paginationList = pagination.getPaginationList();
-        
+        $scope.getAddress($scope.my_filter, new_page);
     };
 
     $scope.currentPageNum = function () {
@@ -114,17 +121,12 @@ adrApp.controller('myCtrl',
 
         $scope.old_my_filter.sortType = $scope.my_filter.sortType;
         $scope.old_my_filter.sortReverse = $scope.my_filter.sortReverse;
-        $http({ method: 'GET', url: '/Home/SortFilterColumn', params: $scope.old_my_filter }).
-         then(function success(response) {
-             pagination.fillArrayAddress(response.data);
-             $scope.ListAddress = pagination.getPageAddress(0);
-             $scope.paginationList = pagination.getPaginationList();
-             console.log(response.data);
-         })
+
+        $scope.getAddress($scope.old_my_filter, 0);
     };
 
-        //проверим сортируется ли столбец,
-        // или применяется ли к нему фильтр
+    //проверим сортируется ли столбец,
+    // или применяется ли к нему фильтр
     $scope.isSortColumn = function (name) {
         var isSortFilter = false;
         var x = false;
@@ -157,13 +159,8 @@ adrApp.controller('myCtrl',
         //сохраним фильтр
         $scope.saveFilter();
 
-        $http({ method: 'GET', url: '/Home/SortFilterColumn', params: $scope.my_filter }).
-         then(function success(response) {
-             pagination.fillArrayAddress(response.data);
-             $scope.ListAddress = pagination.getPageAddress(0);
-             $scope.paginationList = pagination.getPaginationList();
-             console.log(response.data);
-         })
+        $scope.getAddress($scope.my_filter, 0);
+
     };
         //Функция сброса фильтра
     $scope.resetFilter = function () {

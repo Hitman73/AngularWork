@@ -45,12 +45,17 @@ namespace WebAngular.Controllers
         [HttpGet]
         public ActionResult SortFilterColumn(string f_country, string f_city, string f_street, string f_house,
                 int? f_number_min, int? f_number_max, int? f_index, string f_date,
-                DateTime? f_StartDate, DateTime? f_EndDate, string sortType, bool? sortReverse) //сортируем таблицу по столбцу
+                DateTime? f_StartDate, DateTime? f_EndDate, string sortType, bool? sortReverse, int? page) //сортируем таблицу по столбцу
         {
-            // получаем объекты из бд
-            var address = db.Addres;
+            int curPage = 0;// текущая страница;
+            System.Linq.IQueryable<Addres> f_data = db.Addres;
             //Отфильтруем по Стране, Городу и улице
-            var f_data = db.Addres.Where(p => p.Country.Contains(f_country) && p.City.Contains(f_city) && p.Street.Contains(f_street));
+            if (f_country!= null)
+                f_data = f_data.Where(p => p.Country.Contains(f_country));
+            if (f_city != null)
+                f_data = f_data.Where(p => p.City.Contains(f_city));
+            if (f_street != null)
+                f_data = f_data.Where(p => p.Street.Contains(f_street));
 
             //Фильтруем по номеру дома
             if (f_house != "")
@@ -102,8 +107,12 @@ namespace WebAngular.Controllers
                     f_data = (sortReverse == false) ? f_data.OrderByDescending(p => p.Id) : f_data.OrderBy(p => p.Id);
                     break;
             }
-            f_data = f_data.Take(3010);
-            return Json(f_data, JsonRequestBehavior.AllowGet); // и наш объект address сериализован
+            int count = f_data.Count();
+            if (page != null) curPage = (int)page;
+            //возьмем 100 записей начиная с (100 * curPage)
+            f_data = f_data.Skip(100 * curPage).Take(100);
+            var prm = new { data = f_data, count = count };
+            return Json(prm, JsonRequestBehavior.AllowGet); // и наш объект address сериализован
         }        
     }
     
