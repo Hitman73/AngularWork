@@ -43,6 +43,8 @@ namespace WebAngular.Generator
                         foreach (Street c in street) { db.Street.Add(c); }
                         db.SaveChanges();
                     }
+                    //изменяем таймаут, запрос на добавление 100000 записей выполняется примерно 6 мин 30 сек
+                    db.Database.CommandTimeout = 460;
                     //генерируем записи в таблицу Addres
                     db.genRecord();                 
                 }
